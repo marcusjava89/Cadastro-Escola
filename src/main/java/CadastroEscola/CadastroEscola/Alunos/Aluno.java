@@ -8,10 +8,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "aluno")
-@SequenceGenerator(name = "seq_aluno", sequenceName = "seq_aluno", allocationSize = 1, initialValue = 1)
+@SequenceGenerator(name = "seq_aluno", sequenceName = "seq_aluno", 
+allocationSize = 1, initialValue = 1)
 public class Aluno implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -19,11 +23,17 @@ public class Aluno implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_aluno")
 	private Long id;
-	private String nome;
-	private int idade;
-	private String cpf;
-	private String chave;
 	
+	@NotBlank(message = "O campo do nome não pode ser vazio.")
+	private String nome;
+	
+	@NotBlank(message = "Campo do nome não pode ser vazio.")
+	private int idade;
+	
+	private String cpf;
+	
+	@NotBlank(message = "Campo da chave não pode ser vazia")
+	private String chave;
 	
 	public String getChave() {
 		return chave;

@@ -32,11 +32,11 @@ public class GreetingsController {
 
 		int cont = 0;
 
-		if (aluno.getNome() == null || aluno.getNome().trim() == "") {
+		if (aluno.getNome() == null || aluno.getNome().trim().equals("")) {
 			return new ResponseEntity<String>("O campo do nome não pode ficar vazio.", HttpStatus.OK);
 		}
 
-		if (aluno.getChave() == null || aluno.getChave().trim() == "") {
+		if (aluno.getChave() == null || aluno.getChave().trim().equals("")) {
 			return new ResponseEntity<String>("A chave não pode ficar vazia!", HttpStatus.OK);
 		}
 
@@ -47,7 +47,8 @@ public class GreetingsController {
 		}
 
 		if (cont != 0) {
-			return new ResponseEntity<String>("Chave já existente e não pode ser usada!", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<String>("Chave já existente e não pode ser usada!", 
+					HttpStatus.BAD_REQUEST);
 		}
 
 		Aluno user = alunoRepository.save(aluno);
@@ -76,7 +77,8 @@ public class GreetingsController {
 		}
 
 		if (aluno.getChave() == null || aluno.getChave().trim() == "") {
-			return new ResponseEntity<String>("A chave não pode ficar vazia na atualização!", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<String>("A chave não pode ficar vazia na atualização!", 
+					HttpStatus.BAD_REQUEST);
 		}
 		listaChave.remove(aluno.getChave());
 		for (String chave : listaChave) {
@@ -86,7 +88,8 @@ public class GreetingsController {
 		}
 
 		if (cont != 0) {
-			return new ResponseEntity<String>("Chave repetida não pode ser usada na atualização!", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<String>("Chave repetida não pode ser usada na atualização!", 
+					HttpStatus.BAD_REQUEST);
 		}
 		alunoRepository.saveAndFlush(aluno);
 		return new ResponseEntity<String>("Usuário atualizado com sucesso!", HttpStatus.BAD_REQUEST);
