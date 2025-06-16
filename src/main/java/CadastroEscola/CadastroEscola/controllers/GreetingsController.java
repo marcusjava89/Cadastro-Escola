@@ -2,6 +2,8 @@ package CadastroEscola.CadastroEscola.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,10 +25,9 @@ public class GreetingsController {
 	@Autowired
 	private AlunoRepository alunoRepository;
 
-	/*Cadastro do aluno.*/
 	@PostMapping(value = "cadastrar")
 	@ResponseBody
-	public ResponseEntity<?> cadastrar(@RequestBody Aluno aluno) {
+	public ResponseEntity<?> cadastrar(@Valid @RequestBody Aluno aluno) {
 
 		List<String> listaChave = alunoRepository.listaChaves();
 
@@ -102,7 +103,7 @@ public class GreetingsController {
 		alunoRepository.deleteById(iduser);
 		return new ResponseEntity<String>("O estudante foi apagado com sucesso!", HttpStatus.OK);
 	}
-	/*Com apenas parte do nome aparece uma lista de alunos que têm essa parte em seu nome.*/
+	/*Com parte do nome busca uma lista de alunos que têm essa parte em seu nome.*/
 	@GetMapping("buscarpornome")
 	@ResponseBody
 	public ResponseEntity<List<Aluno>> buscarpornome(@RequestParam String nomeAluno) {
